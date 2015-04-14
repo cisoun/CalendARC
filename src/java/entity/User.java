@@ -21,12 +21,9 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Users.findAll", query = "SELECT u FROM user u"),
     @NamedQuery(name = "Users.findById", query = "SELECT u FROM user u WHERE u.id = :id"),
-    @NamedQuery(name = "Users.findByName", query = "SELECT u FROM user u WHERE u.name = :name"),
-    @NamedQuery(name = "Users.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email"),
-    @NamedQuery(name = "Users.findByPhone", query = "SELECT c FROM Customer c WHERE c.phone = :phone"),
-    @NamedQuery(name = "Users.findByAddress", query = "SELECT c FROM Customer c WHERE c.address = :address"),
-    @NamedQuery(name = "Users.findByCityRegion", query = "SELECT c FROM Customer c WHERE c.cityRegion = :cityRegion"),
-    @NamedQuery(name = "Users.findByCcNumber", query = "SELECT c FROM Customer c WHERE c.ccNumber = :ccNumber")})
+    @NamedQuery(name = "Users.findByFirstname", query = "SELECT u FROM user u WHERE u.firstname = :firstname"),
+    @NamedQuery(name = "Users.findByLastname", query = "SELECT c FROM user c WHERE c.lastname = :lastname"),
+    @NamedQuery(name = "Users.findByMail", query = "SELECT c FROM user c WHERE c.mail = :mail")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
