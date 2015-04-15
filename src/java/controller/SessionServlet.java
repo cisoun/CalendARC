@@ -14,14 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Sammy Guergachi <sguergachi at gmail.com>
- */
 @WebServlet(name = "SessionServlet", urlPatterns = {
     "/login",
     "/logout"})
-
 public class SessionServlet extends HttpServlet {
 
     private String userPath;
