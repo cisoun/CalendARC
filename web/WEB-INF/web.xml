@@ -14,12 +14,12 @@
         <servlet-class>controller.ControllerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/ControllerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -40,8 +40,8 @@
         </jsp-property-group>
         <jsp-property-group>
             <description>Login forms</description>
-	    <url-pattern>/WEB-INF/view/login/*</url-pattern>
-	    <include-prelude>/WEB-INF/jspf/header.jspf</include-prelude>
+            <url-pattern>/WEB-INF/view/login/*</url-pattern>
+            <include-prelude>/WEB-INF/jspf/header.jspf</include-prelude>
             <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
         </jsp-property-group>
     </jsp-config>
@@ -92,4 +92,4 @@
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
     </resource-ref>
-</web-app>
+    </web-app>
