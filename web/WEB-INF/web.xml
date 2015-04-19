@@ -21,30 +21,14 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>faces/index.xhtml</welcome-file>
+    </welcome-file-list>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    <welcome-file-list>
-        <welcome-file>faces/index.jsp</welcome-file>
-        <welcome-file>/index.jsp</welcome-file>
-    </welcome-file-list>
-    <jsp-config>
-        <jsp-property-group>
-            <description>Header and footer settings.</description>
-            <url-pattern>/index.jsp</url-pattern>
-            <url-pattern>/WEB-INF/view/*</url-pattern>
-            <include-prelude>/WEB-INF/jspf/header.jspf</include-prelude>
-            <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
-        </jsp-property-group>
-        <jsp-property-group>
-            <description>Login forms</description>
-            <url-pattern>/WEB-INF/view/login/*</url-pattern>
-            <include-prelude>/WEB-INF/jspf/header.jspf</include-prelude>
-            <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
-        </jsp-property-group>
-    </jsp-config>
     <security-constraint>
         <display-name>AdminConstraint</display-name>
         <web-resource-collection>
@@ -108,4 +92,4 @@
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
     </resource-ref>
-    </web-app>
+</web-app>
