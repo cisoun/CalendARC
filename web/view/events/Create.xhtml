@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateEventsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    
+                    <h:outputLabel value="#{bundle.CreateEventsLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{eventsController.selected.name}" title="#{bundle.CreateEventsTitle_name}" required="true" requiredMessage="#{bundle.CreateEventsRequiredMessage_name}"/>
+                    <h:outputLabel value="#{bundle.CreateEventsLabel_description}" for="description" />
+                    <h:inputTextarea rows="4" cols="30" id="description" value="#{eventsController.selected.description}" title="#{bundle.CreateEventsTitle_description}" />
+                    <h:outputLabel value="#{bundle.CreateEventsLabel_startdate}" for="startdate" />
+                    <h:inputText id="startdate" value="#{eventsController.selected.startdate}" title="#{bundle.CreateEventsTitle_startdate}" required="true" requiredMessage="#{bundle.CreateEventsRequiredMessage_startdate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateEventsLabel_enddate}" for="enddate" />
+                    <h:inputText id="enddate" value="#{eventsController.selected.enddate}" title="#{bundle.CreateEventsTitle_enddate}" required="true" requiredMessage="#{bundle.CreateEventsRequiredMessage_enddate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{eventsController.create}" value="#{bundle.CreateEventsSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{eventsController.prepareList}" value="#{bundle.CreateEventsShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateEventsIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

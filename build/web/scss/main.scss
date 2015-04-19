@@ -1,7 +1,10 @@
 @import url("//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700");
 
-$primary-color:		#E53935;
-$primary-color-lighter:	#F44336;
+$primary-color:		    #E53935;
+$primary-color-lighter:	    #F44336;
+$secondary-color:	    #388E3C;
+$secondary-color-lighter:   #4CAF50;
+
 
 $color-gray-darker:	lighten(#000, 13.5%); // #222
 $color-gray-dark:	lighten(#000, 20%);   // #333
@@ -23,13 +26,15 @@ html {
 }
 
 body {
-    padding-top: 51px;
+    padding-bottom: 100px;
+    padding-top: 51px
 }
 
 h1 {
     padding-top: 2em;
     padding-bottom: 1em;
 }
+
 
 .calendar-header {
     background-color: $primary-color-lighter;
@@ -61,7 +66,7 @@ table.calendar {
 }
 
 .calendar td {
-    padding: 1em;
+    padding: 0.7em;
 }
 
 /*  Define the background color for all the ODD table columns  */
@@ -82,4 +87,14 @@ table.calendar {
 
 .calendar tr td:nth-child(1) {
     text-align: center;
+}
+
+div.calendar-header.calendar-secondary,
+.calendar.calendar-secondary th  {
+    background-color: $secondary-color-lighter !important;
+}
+
+.calendar-header a {
+    color: #fff !important;
+    text-decoration: none;
 }
