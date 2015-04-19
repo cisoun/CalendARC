@@ -9,6 +9,10 @@
     <role-name>StudentRole</role-name>
     <group-name>student</group-name>
   </security-role-mapping>
+  <security-role-mapping>
+    <role-name>TeacherRole</role-name>
+    <group-name>teacher</group-name>
+  </security-role-mapping>
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
   </servlet>

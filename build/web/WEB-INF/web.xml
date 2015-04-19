@@ -70,6 +70,18 @@
             <role-name>AdminRole</role-name>
         </auth-constraint>
     </security-constraint>
+    <security-constraint>
+        <display-name>TeacherConstraint</display-name>
+        <web-resource-collection>
+            <web-resource-name>Teacher</web-resource-name>
+            <description/>
+            <url-pattern>/faces/secureTeacher/lessons/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>TeacherRole</role-name>
+        </auth-constraint>
+    </security-constraint>
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>calendarcRealm</realm-name>
@@ -85,6 +97,10 @@
     <security-role>
         <description/>
         <role-name>StudentRole</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>TeacherRole</role-name>
     </security-role>
     <resource-ref>
         <res-ref-name>jdbc/calendarcSource</res-ref-name>
