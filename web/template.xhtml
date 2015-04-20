@@ -28,16 +28,19 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 		    <ul class="nav navbar-nav navbar-right">
-			
-			
 			<ui:fragment rendered="#{request.userPrincipal != null}">
 			    <li><h:link value="Lessons" outcome="/view/calendars/lessons" /></li>
 			    <li><h:link value="My calendar" outcome="/view/calendars/mycalendar" /></li>
+			    <li><h:form class="navbar-right"><h:commandLink class="navbar-text" action="#{request.logout()}" value="Logout" /></h:form></li>
+			    <li><h:outputText value="#{usersController.currentUser.firstname} #{usersController.currentUser.lastname}" escape="false" /></li>
 			</ui:fragment>
 			<ui:fragment rendered="#{request.userPrincipal == null}">
 			    <li><h:link value="Login" outcome="/login" /></li>
 			</ui:fragment>
 		    </ul>
+		    <ui:fragment rendered="#{request.userPrincipal != null}">
+			    
+		    </ui:fragment>
 		</div>
 	    </div>
 	</nav>
