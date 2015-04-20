@@ -65,7 +65,8 @@ table.calendar {
 }
 
 .calendar td {
-    padding: 0.7em;
+    /*padding: 0.7em;*/
+    height: 3em;
 }
 
 /*  Define the background color for all the ODD table columns  */
@@ -96,4 +97,16 @@ div.calendar-header.calendar-secondary,
 .calendar-header a {
     color: #fff !important;
     text-decoration: none;
+}
+
+div.calendar-event {
+    background-color: lighten($secondary-color-lighter, 10%);
+    border: 1px solid lighten($secondary-color, 10%);
+    position: absolute;
+    text-align: center;
+}
+
+.calendar tr:nth-child(0n+2) td {
+    background-color: blue;
+    height: 0;
 }

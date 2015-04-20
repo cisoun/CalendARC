@@ -22,11 +22,11 @@
                     <h:inputTextarea rows="4" cols="30" id="description" value="#{eventsController.selected.description}" title="#{bundle.CreateEventsTitle_description}" />
                     <h:outputLabel value="#{bundle.CreateEventsLabel_startdate}" for="startdate" />
                     <h:inputText id="startdate" value="#{eventsController.selected.startdate}" title="#{bundle.CreateEventsTitle_startdate}" required="true" requiredMessage="#{bundle.CreateEventsRequiredMessage_startdate}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                        <f:convertDateTime pattern="dd.MM.yyyy H:mm" />
                     </h:inputText>
                     <h:outputLabel value="#{bundle.CreateEventsLabel_enddate}" for="enddate" />
                     <h:inputText id="enddate" value="#{eventsController.selected.enddate}" title="#{bundle.CreateEventsTitle_enddate}" required="true" requiredMessage="#{bundle.CreateEventsRequiredMessage_enddate}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                        <f:convertDateTime pattern="dd.MM.yyyy H:mm" />
                     </h:inputText>
                 </h:panelGrid>
                 <br />

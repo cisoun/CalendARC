@@ -4,6 +4,11 @@ import entity.util.util.JsfUtil;
 import entity.util.util.PaginationHelper;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -38,12 +43,16 @@ public class EventsController implements Serializable {
             selectedItemIndex = -1;
         }
         current.setIduser(getCurrentUser().getIduser());
-        System.out.println("toto : " + current.getIduser());
+        System.out.println(current.getIduser());
         return current;
     }
 
     private EventsFacade getFacade() {
         return ejbFacade;
+    }
+    
+    public List<Events> getEventsByDay(String date) {
+	return ejbFacade.getEventsByDay(getCurrentUser().getIduser(), date);
     }
     
     public Users getCurrentUser()

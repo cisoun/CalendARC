@@ -5,13 +5,16 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition template="/template.xhtml">
+	<ui:define name="js">
+	    <h:outputScript library="js" name="calendar.js" />
+	</ui:define>
 	<ui:define name="content">
 	    <div class="calendar-header calendar-secondary">
-		My calendar
+		My calendar | #{calendarsController.getDayInWeek(param['date'], 0)}
 		<div class="pull-right">
 		    <h:link outcome="/view/events/Create" class="glyphicon glyphicon glyphicon-plus" />
-		    <a href="#" class="glyphicon glyphicon-chevron-left"></a>
-		    <a href="#" class="glyphicon glyphicon-chevron-right"></a>
+		    <a href="?date=#{calendarsController.getPastWeekFrom(param['date'])}" class="glyphicon glyphicon-chevron-left"></a>
+		    <a href="?date=#{calendarsController.getFuturWeekFrom(param['date'])}" class="glyphicon glyphicon-chevron-right"></a>
 		</div>
 	    </div>
 	    <table class="calendar calendar-secondary">
@@ -25,6 +28,17 @@
 		    <th>Saturday</th>
 		    <th>Sunday</th>
 		</tr>
+		<tr>
+		    <td></td>
+		    <c:forEach begin="0" end="6" var="day">
+		    <td>
+			<c:forEach items="#{eventsController.getEventsByDay(calendarsController.getDayInWeek(param['date'], day))}" var="event">
+			    <div class="calendar-event" style="margin-top: #{3.0 * event.startdate.hours}em; height: #{3 * (event.enddate.hours - event.startdate.hours)}em">${event.name}</div>
+			</c:forEach>
+		    </td>
+		    </c:forEach>
+		</tr>
+		
 		<c:forEach begin="0" end="23" var="hour">
 		    <tr>
 			<td>${hour}:00 - ${hour + 1}:00</td>
@@ -37,6 +51,7 @@
 			<td></td>
 		    </tr>
 		</c:forEach>
+		
 	    </table>
 	</ui:define>
     </ui:composition>

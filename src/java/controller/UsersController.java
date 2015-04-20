@@ -139,6 +139,11 @@ public class UsersController implements Serializable {
             return "List";
         }
     }
+    
+    /*public void logout() {
+	HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        request.logout();
+    }*/
 
     private void performDestroy() {
         try {
