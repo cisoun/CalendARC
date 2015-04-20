@@ -31,12 +31,6 @@
                     <h:inputText id="day" value="#{lessonsController.selected.day}" title="#{bundle.CreateLessonsTitle_day}" required="true" requiredMessage="#{bundle.CreateLessonsRequiredMessage_day}"/>
                     <h:outputLabel value="#{bundle.CreateLessonsLabel_cycle}" for="cycle" />
                     <h:inputText id="cycle" value="#{lessonsController.selected.cycle}" title="#{bundle.CreateLessonsTitle_cycle}" />
-                    
-                    <h:outputLabel value="#{bundle.CreateClassesLabel_name}" for="classe" />
-                    <h:selectOneMenu id="classes" value="#{classesController.selected.idclass}" title="#{bundle.CreateClassesTitle_name}" required="true" requiredMessage="#{bundle.CreateClassesRequiredMessage_name}">
-                        <f:selectItems value="#{classesController.itemsAvailableSelectOne}" />
-                    </h:selectOneMenu>
-                    
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{lessonsController.create}" value="#{bundle.CreateLessonsSaveLink}" />

@@ -3,7 +3,6 @@ package controller.util;
 import entity.util.Lessons;
 import controller.util.util.JsfUtil;
 import controller.util.util.PaginationHelper;
-import entity.util.RelClassLesson;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -26,7 +25,6 @@ public class LessonsController implements Serializable {
     private DataModel items = null;
     @EJB
     private controller.util.LessonsFacade ejbFacade;
-    private controller.RelClassLessonFacade ejbRelClassLessonFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -82,10 +80,6 @@ public class LessonsController implements Serializable {
 
     public String create() {
         try {
-            RelClassLesson relClassLEsson = new RelClassLesson();
-            relClassLEsson.setIdlesson(current.getIdlesson());
-            relClassLEsson.setIdclass(1);
-            ejbRelClassLessonFacade.create(relClassLEsson);
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("LessonsCreated"));
             return prepareCreate();
