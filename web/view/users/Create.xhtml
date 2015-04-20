@@ -33,7 +33,9 @@
                 <h:commandLink action="#{usersController.create}" value="#{bundle.CreateUsersSaveLink}" />
                 <br />
                 <br />
+		<ui:fragment rendered="#{request.userPrincipal != null and usersController.currentUser.permission.id == 1}">
                 <h:commandLink action="#{usersController.prepareList}" value="#{bundle.CreateUsersShowAllLink}" immediate="true"/>
+		</ui:fragment>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.CreateUsersIndexLink}"/>
