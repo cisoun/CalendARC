@@ -1,9 +1,8 @@
-package controller;
+package controller.util;
 
-import controller.PermissionFacade;
-import entity.util.Permission;
-import controller.util.JsfUtil;
-import controller.util.PaginationHelper;
+import entity.util.Teachers;
+import controller.util.util.JsfUtil;
+import controller.util.util.PaginationHelper;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -18,29 +17,29 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "permissionController")
+@ManagedBean(name = "teachersController")
 @SessionScoped
-public class PermissionController implements Serializable {
+public class TeachersController implements Serializable {
 
-    private Permission current;
+    private Teachers current;
     private DataModel items = null;
     @EJB
-    private controller.PermissionFacade ejbFacade;
+    private controller.util.TeachersFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public PermissionController() {
+    public TeachersController() {
     }
 
-    public Permission getSelected() {
+    public Teachers getSelected() {
         if (current == null) {
-            current = new Permission();
+            current = new Teachers();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private PermissionFacade getFacade() {
+    private TeachersFacade getFacade() {
         return ejbFacade;
     }
 
@@ -68,13 +67,13 @@ public class PermissionController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Permission) getItems().getRowData();
+        current = (Teachers) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Permission();
+        current = new Teachers();
         selectedItemIndex = -1;
         return "Create";
     }
@@ -82,7 +81,7 @@ public class PermissionController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PermissionCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TeachersCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -91,7 +90,7 @@ public class PermissionController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Permission) getItems().getRowData();
+        current = (Teachers) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -99,7 +98,7 @@ public class PermissionController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PermissionUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TeachersUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -108,7 +107,7 @@ public class PermissionController implements Serializable {
     }
 
     public String destroy() {
-        current = (Permission) getItems().getRowData();
+        current = (Teachers) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -132,7 +131,7 @@ public class PermissionController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PermissionDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TeachersDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -187,27 +186,17 @@ public class PermissionController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
-    
-    public SelectItem[] getItemsAvailableSelectStudent() {
-        int[] range = {1,1};
-        return JsfUtil.getSelectItems(ejbFacade.findRange(range), true);
-    }
-    
-    public SelectItem[] getItemsAvailableSelectTeacher() {
-        int[] range = {2,2};
-        return JsfUtil.getSelectItems(ejbFacade.findRange(range), true);
-    }
 
-    @FacesConverter(forClass = Permission.class)
-    public static class PermissionControllerConverter implements Converter {
+    @FacesConverter(forClass = Teachers.class)
+    public static class TeachersControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            PermissionController controller = (PermissionController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "permissionController");
+            TeachersController controller = (TeachersController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "teachersController");
             return controller.ejbFacade.find(getKey(value));
         }
 
@@ -228,11 +217,11 @@ public class PermissionController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Permission) {
-                Permission o = (Permission) object;
-                return getStringKey(o.getId());
+            if (object instanceof Teachers) {
+                Teachers o = (Teachers) object;
+                return getStringKey(o.getIdteacher());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Permission.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Teachers.class.getName());
             }
         }
 

@@ -34,7 +34,7 @@
         <web-resource-collection>
             <web-resource-name>Admin</web-resource-name>
             <description/>
-            <url-pattern>/secureAdmin/*</url-pattern>
+            <url-pattern>/faces/secureAdmin/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>
@@ -92,4 +92,4 @@
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
     </resource-ref>
-</web-app>
+    </web-app>
