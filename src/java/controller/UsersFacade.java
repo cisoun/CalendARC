@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package facade;
+package controller;
 
 import entity.util.Users;
 import javax.ejb.Stateless;
@@ -20,7 +20,6 @@ public class UsersFacade extends AbstractFacade<Users> {
     @PersistenceContext(unitName = "CalendARCPU")
     private EntityManager em;
 
-    @Override
     protected EntityManager getEntityManager() {
         return em;
     }

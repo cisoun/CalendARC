@@ -28,8 +28,15 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 		    <ul class="nav navbar-nav navbar-right">
-			<li><h:link value="Lessons" outcome="/view/calendars/lessons" /></li>
-			<li><h:link value="My calendar" outcome="/view/calendars/mycalendar" /></li>
+			
+			
+			<ui:fragment rendered="#{request.userPrincipal != null}">
+			    <li><h:link value="Lessons" outcome="/view/calendars/lessons" /></li>
+			    <li><h:link value="My calendar" outcome="/view/calendars/mycalendar" /></li>
+			</ui:fragment>
+			<ui:fragment rendered="#{request.userPrincipal == null}">
+			    <li><h:link value="Login" outcome="/login" /></li>
+			</ui:fragment>
 		    </ul>
 		</div>
 	    </div>
