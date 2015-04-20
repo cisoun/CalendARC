@@ -9,7 +9,7 @@
         <ui:define name="title">
             <h:outputText value="#{bundle.ListRelClassLessonTitle}"></h:outputText>
         </ui:define>
-        <ui:define name="body">
+        <ui:define name="content">
             <h:form styleClass="jsfcrud_list_form">
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
@@ -28,15 +28,15 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRelClassLessonTitle_idclass}"/>
+                                <h:outputText value="Class name : "/>
                             </f:facet>
-                            <h:outputText value="#{item.idclass}"/>
+                            <h:outputText value="#{item.myClass.name}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRelClassLessonTitle_idlesson}"/>
+                                <h:outputText value="Lesson name :"/>
                             </f:facet>
-                            <h:outputText value="#{item.idlesson}"/>
+                            <h:outputText value="#{item.myLesson.name}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">

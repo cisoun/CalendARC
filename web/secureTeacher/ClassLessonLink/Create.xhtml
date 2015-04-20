@@ -15,12 +15,12 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateRelClassLessonLabel_idlesson}" for="idclass" />
+                    <h:outputLabel value="Lesson : " for="idclass" />
                     <h:selectOneMenu id="lesson" value="#{relClassLessonController.selected.myLesson}" title="#{bundle.CreateClassesTitle_name}" required="true" requiredMessage="#{bundle.CreateClassesRequiredMessage_name}">
                         <f:selectItems value="#{lessonsController.itemsAvailableSelectOne}" />
                     </h:selectOneMenu>
                     
-                    <h:outputLabel value="#{bundle.CreateRelClassLessonLabel_idclass}" for="idclass" />
+                    <h:outputLabel value="Class :" for="idclass" />
                     <h:selectOneMenu id="class" value="#{relClassLessonController.selected.myClass}" title="#{bundle.CreateClassesTitle_name}" required="true" requiredMessage="#{bundle.CreateClassesRequiredMessage_name}">
                         <f:selectItems value="#{classesController.itemsAvailableSelectOne}" />
                     </h:selectOneMenu>
