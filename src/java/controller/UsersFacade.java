@@ -30,8 +30,8 @@ public class UsersFacade extends AbstractFacade<Users> {
     
     public Users getUserByName(String name)
     {
-        Query query = em.createNamedQuery("User.findByUsername");
-        query.setParameter("username", name);
+        Query query = em.createNamedQuery("Users.findByMail");
+        query.setParameter("mail", name);
         
         return (Users) query.getSingleResult();
     }
