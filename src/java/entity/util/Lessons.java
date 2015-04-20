@@ -155,7 +155,7 @@ public class Lessons implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.util.Lessons[ idlesson=" + idlesson + " ]";
+        return this.getName();
     }
     
 }

@@ -1,9 +1,9 @@
 package controller.util;
 
-import entity.util.Lessons;
+import entity.util.RelClassLesson;
 import controller.util.util.JsfUtil;
 import controller.util.util.PaginationHelper;
-import entity.util.RelClassLesson;
+import controller.RelClassLessonFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -18,30 +18,29 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "lessonsController")
+@ManagedBean(name = "relClassLessonController")
 @SessionScoped
-public class LessonsController implements Serializable {
+public class RelClassLessonController implements Serializable {
 
-    private Lessons current;
+    private RelClassLesson current;
     private DataModel items = null;
     @EJB
-    private controller.util.LessonsFacade ejbFacade;
-    private controller.RelClassLessonFacade ejbRelClassLessonFacade;
+    private controller.RelClassLessonFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public LessonsController() {
+    public RelClassLessonController() {
     }
 
-    public Lessons getSelected() {
+    public RelClassLesson getSelected() {
         if (current == null) {
-            current = new Lessons();
+            current = new RelClassLesson();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private LessonsFacade getFacade() {
+    private RelClassLessonFacade getFacade() {
         return ejbFacade;
     }
 
@@ -69,25 +68,26 @@ public class LessonsController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Lessons) getItems().getRowData();
+        current = (RelClassLesson) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Lessons();
+        current = new RelClassLesson();
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
         try {
-            RelClassLesson relClassLEsson = new RelClassLesson();
-            relClassLEsson.setIdlesson(current.getIdlesson());
-            relClassLEsson.setIdclass(1);
-            ejbRelClassLessonFacade.create(relClassLEsson);
+            current.setIdclass(current.getMyClass().getIdclass());
+            current.setIdlesson(current.getMyLesson().getIdlesson());
+            
+            System.out.println("Toto classID : " + current.getIdclass());
+            
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("LessonsCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RelClassLessonCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -96,7 +96,7 @@ public class LessonsController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Lessons) getItems().getRowData();
+        current = (RelClassLesson) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -104,7 +104,7 @@ public class LessonsController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("LessonsUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RelClassLessonUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -113,7 +113,7 @@ public class LessonsController implements Serializable {
     }
 
     public String destroy() {
-        current = (Lessons) getItems().getRowData();
+        current = (RelClassLesson) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -137,7 +137,7 @@ public class LessonsController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("LessonsDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RelClassLessonDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -193,16 +193,16 @@ public class LessonsController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = Lessons.class)
-    public static class LessonsControllerConverter implements Converter {
+    @FacesConverter(forClass = RelClassLesson.class)
+    public static class RelClassLessonControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            LessonsController controller = (LessonsController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "lessonsController");
+            RelClassLessonController controller = (RelClassLessonController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "relClassLessonController");
             return controller.ejbFacade.find(getKey(value));
         }
 
@@ -223,11 +223,11 @@ public class LessonsController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Lessons) {
-                Lessons o = (Lessons) object;
-                return getStringKey(o.getIdlesson());
+            if (object instanceof RelClassLesson) {
+                RelClassLesson o = (RelClassLesson) object;
+                return getStringKey(o.getIdrel());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Lessons.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + RelClassLesson.class.getName());
             }
         }
 

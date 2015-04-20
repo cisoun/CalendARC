@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditRelClassLessonTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditRelClassLessonLabel_idrel}" for="idrel" />
+                    <h:inputText id="idrel" value="#{relClassLessonController.selected.idrel}" title="#{bundle.EditRelClassLessonTitle_idrel}" required="true" requiredMessage="#{bundle.EditRelClassLessonRequiredMessage_idrel}"/>
+                    <h:outputLabel value="#{bundle.EditRelClassLessonLabel_idclass}" for="idclass" />
+                    <h:inputText id="idclass" value="#{relClassLessonController.selected.idclass}" title="#{bundle.EditRelClassLessonTitle_idclass}" required="true" requiredMessage="#{bundle.EditRelClassLessonRequiredMessage_idclass}"/>
+                    <h:outputLabel value="#{bundle.EditRelClassLessonLabel_idlesson}" for="idlesson" />
+                    <h:inputText id="idlesson" value="#{relClassLessonController.selected.idlesson}" title="#{bundle.EditRelClassLessonTitle_idlesson}" required="true" requiredMessage="#{bundle.EditRelClassLessonRequiredMessage_idlesson}"/>
+                </h:panelGrid>
+                <h:commandLink action="#{relClassLessonController.update}" value="#{bundle.EditRelClassLessonSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditRelClassLessonViewLink}"/>
+                <br />
+                <h:commandLink action="#{relClassLessonController.prepareList}" value="#{bundle.EditRelClassLessonShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditRelClassLessonIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
