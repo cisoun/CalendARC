@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateRelClassUserTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateRelClassUserLabel_idrel}" for="idrel" />
+                    <h:inputText id="idrel" value="#{relClassUserController.selected.idrel}" title="#{bundle.CreateRelClassUserTitle_idrel}" required="true" requiredMessage="#{bundle.CreateRelClassUserRequiredMessage_idrel}"/>
+                    <h:outputLabel value="#{bundle.CreateRelClassUserLabel_iduser}" for="iduser" />
+                    <h:inputText id="iduser" value="#{relClassUserController.selected.iduser}" title="#{bundle.CreateRelClassUserTitle_iduser}" required="true" requiredMessage="#{bundle.CreateRelClassUserRequiredMessage_iduser}"/>
+                    <h:outputLabel value="#{bundle.CreateRelClassUserLabel_idclass}" for="idclass" />
+                    <h:inputText id="idclass" value="#{relClassUserController.selected.idclass}" title="#{bundle.CreateRelClassUserTitle_idclass}" required="true" requiredMessage="#{bundle.CreateRelClassUserRequiredMessage_idclass}"/>
+                    <h:outputLabel value="#{bundle.CreateRelClassUserLabel_idClassByUserMail}" for="idClassByUserMail" />
+                    <h:inputText id="idClassByUserMail" value="#{relClassUserController.selected.idClassByUserMail}" title="#{bundle.CreateRelClassUserTitle_idClassByUserMail}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{relClassUserController.create}" value="#{bundle.CreateRelClassUserSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{relClassUserController.prepareList}" value="#{bundle.CreateRelClassUserShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateRelClassUserIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

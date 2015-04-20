@@ -34,7 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Lessons.findByStarttime", query = "SELECT l FROM Lessons l WHERE l.starttime = :starttime"),
     @NamedQuery(name = "Lessons.findByEndtime", query = "SELECT l FROM Lessons l WHERE l.endtime = :endtime"),
     @NamedQuery(name = "Lessons.findByDay", query = "SELECT l FROM Lessons l WHERE l.day = :day"),
-    @NamedQuery(name = "Lessons.findByCycle", query = "SELECT l FROM Lessons l WHERE l.cycle = :cycle")})
+    @NamedQuery(name = "Lessons.findByCycle", query = "SELECT l FROM Lessons l WHERE l.cycle = :cycle"),
+    @NamedQuery(name = "Lessons.findStudentLessons", query = "SELECT l FROM Lessons l WHERE l.cycle = :cycle"),})
 public class Lessons implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
