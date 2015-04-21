@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{relClassUser.EditRelClassUserTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{relClassUser.EditRelClassUserLabel_idrel}" for="idrel" />
+                    <h:inputText id="idrel" value="#{relClassUserController.selected.idrel}" title="#{relClassUser.EditRelClassUserTitle_idrel}" required="true" requiredMessage="#{relClassUser.EditRelClassUserRequiredMessage_idrel}"/>
+                    <h:outputLabel value="#{relClassUser.EditRelClassUserLabel_iduser}" for="iduser" />
+                    <h:inputText id="iduser" value="#{relClassUserController.selected.iduser}" title="#{relClassUser.EditRelClassUserTitle_iduser}" required="true" requiredMessage="#{relClassUser.EditRelClassUserRequiredMessage_iduser}"/>
+                    <h:outputLabel value="#{relClassUser.EditRelClassUserLabel_idclass}" for="idclass" />
+                    <h:inputText id="idclass" value="#{relClassUserController.selected.idclass}" title="#{relClassUser.EditRelClassUserTitle_idclass}" required="true" requiredMessage="#{relClassUser.EditRelClassUserRequiredMessage_idclass}"/>
+                </h:panelGrid>
+                <h:commandLink action="#{relClassUserController.update}" value="#{relClassUser.EditRelClassUserSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{relClassUser.EditRelClassUserViewLink}"/>
+                <br />
+                <h:commandLink action="#{relClassUserController.prepareList}" value="#{relClassUser.EditRelClassUserShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{relClassUser.EditRelClassUserIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

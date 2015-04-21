@@ -22,6 +22,16 @@
 		    <th>Thursday</th>
 		    <th>Friday</th>
 		</tr>
+		<tr>
+		    <td></td>
+		    <c:forEach begin="0" end="4" var="day">
+		    <td>
+			<c:forEach items="#{relClassUserController.currentUserLessons}" var="lesson">
+			    <div class="calendar-event" style="margin-top: #{3.0 * lesson.period}em; height: #{3 * lesson.length}em">${lesson.name}</div>
+			</c:forEach>
+		    </td>
+		    </c:forEach>
+		</tr>
 		<c:forEach var="period" items="${calendarsController.periods}">
 		<tr>
 		    <td>${period}</td>

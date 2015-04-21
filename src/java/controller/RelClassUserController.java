@@ -1,13 +1,15 @@
 package controller;
 
-import entity.util.RelClassUser;
+import facade.RelClassUserFacade;
+import entity.RelClassUser;
 import controller.util.JsfUtil;
 import controller.util.PaginationHelper;
-import entity.util.Classes;
-import entity.util.Lessons;
-import entity.util.Users;
+import entity.Classes;
+import entity.Lessons;
+import entity.RelClassLesson;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -20,22 +22,33 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
 
-@ManagedBean(name = "relClassUserController")
+
+@ManagedBean(name="relClassUserController")
 @SessionScoped
 public class RelClassUserController implements Serializable {
 
+
     private RelClassUser current;
     private DataModel items = null;
-    @EJB
-    private controller.RelClassUserFacade ejbFacade;
+    @EJB private facade.RelClassUserFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
     public RelClassUserController() {
     }
 
+    public Classes getCurrentUserClass() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        return ejbFacade.getClassesByUserMail(request.getUserPrincipal().getName());
+    }
+    
+    public List<Lessons> getCurrentUserLessons() {
+	return ejbFacade.getCurrentUserLessons(getCurrentUserClass());
+    }
+    
     public RelClassUser getSelected() {
         if (current == null) {
             current = new RelClassUser();
@@ -48,16 +61,6 @@ public class RelClassUserController implements Serializable {
         return ejbFacade;
     }
     
-    public Classes getCurrentUserClass()
-    {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        RelClassUser rel = ejbFacade.getClassByUserMail(request.getUserPrincipal().getName());   
-        Classes currentUserClass = new Classes();
-        currentUserClass.setIdclass(rel.getIdclass());
-        
-        return currentUserClass;
-    }
-
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -69,7 +72,7 @@ public class RelClassUserController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem()+getPageSize()}));
                 }
             };
         }
@@ -82,7 +85,7 @@ public class RelClassUserController implements Serializable {
     }
 
     public String prepareView() {
-        current = (RelClassUser) getItems().getRowData();
+        current = (RelClassUser)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
@@ -96,16 +99,16 @@ public class RelClassUserController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RelClassUserCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle/RelClassUser").getString("RelClassUserCreated"));
             return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle/RelClassUser").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
     public String prepareEdit() {
-        current = (RelClassUser) getItems().getRowData();
+        current = (RelClassUser)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -113,16 +116,16 @@ public class RelClassUserController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RelClassUserUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle/RelClassUser").getString("RelClassUserUpdated"));
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle/RelClassUser").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
     public String destroy() {
-        current = (RelClassUser) getItems().getRowData();
+        current = (RelClassUser)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -146,9 +149,9 @@ public class RelClassUserController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RelClassUserDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle/RelClassUser").getString("RelClassUserDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle/RelClassUser").getString("PersistenceErrorOccured"));
         }
     }
 
@@ -156,14 +159,14 @@ public class RelClassUserController implements Serializable {
         int count = getFacade().count();
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
-            selectedItemIndex = count - 1;
+            selectedItemIndex = count-1;
             // go to previous page if last page disappeared:
             if (pagination.getPageFirstItem() >= count) {
                 pagination.previousPage();
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
+            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex+1}).get(0);
         }
     }
 
@@ -201,12 +204,9 @@ public class RelClassUserController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
-    
-    public List<Lessons> getCurrentUserLessons() {
-        return ejbFacade.getCurrentUserLessons(getCurrentUserClass());
-    }
 
-    @FacesConverter(forClass = RelClassUser.class)
+
+    @FacesConverter(forClass=RelClassUser.class)
     public static class RelClassUserControllerConverter implements Converter {
 
         @Override
@@ -214,7 +214,7 @@ public class RelClassUserController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            RelClassUserController controller = (RelClassUserController) facesContext.getApplication().getELResolver().
+            RelClassUserController controller = (RelClassUserController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "relClassUserController");
             return controller.ejbFacade.find(getKey(value));
         }
@@ -240,7 +240,7 @@ public class RelClassUserController implements Serializable {
                 RelClassUser o = (RelClassUser) object;
                 return getStringKey(o.getIdrel());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + RelClassUser.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+RelClassUser.class.getName());
             }
         }
 

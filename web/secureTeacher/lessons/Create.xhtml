@@ -7,7 +7,7 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateLessonsTitle}"></h:outputText>
+            <h:outputText value="#{lessons.CreateLessonsTitle}"></h:outputText>
         </ui:define>
         <ui:define name="content">
             <h:panelGroup id="messagePanel" layout="block">
@@ -15,31 +15,27 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateLessonsLabel_name}" for="name" />
-                    <h:inputText id="name" value="#{lessonsController.selected.name}" title="#{bundle.CreateLessonsTitle_name}" required="true" requiredMessage="#{bundle.CreateLessonsRequiredMessage_name}"/>
-                    <h:outputLabel value="#{bundle.CreateLessonsLabel_room}" for="room" />
-                    <h:inputText id="room" value="#{lessonsController.selected.room}" title="#{bundle.CreateLessonsTitle_room}" required="true" requiredMessage="#{bundle.CreateLessonsRequiredMessage_room}"/>
-                    <h:outputLabel value="#{bundle.CreateLessonsLabel_starttime}" for="starttime" />
-                    <h:inputText id="starttime" value="#{lessonsController.selected.starttime}" title="#{bundle.CreateLessonsTitle_starttime}" required="true" requiredMessage="#{bundle.CreateLessonsRequiredMessage_starttime}">
-                        <f:convertDateTime pattern="HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateLessonsLabel_endtime}" for="endtime" />
-                    <h:inputText id="endtime" value="#{lessonsController.selected.endtime}" title="#{bundle.CreateLessonsTitle_endtime}" required="true" requiredMessage="#{bundle.CreateLessonsRequiredMessage_endtime}">
-                        <f:convertDateTime pattern="HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateLessonsLabel_day}" for="day" />
-                    <h:inputText id="day" value="#{lessonsController.selected.day}" title="#{bundle.CreateLessonsTitle_day}" required="true" requiredMessage="#{bundle.CreateLessonsRequiredMessage_day}"/>
-                    <h:outputLabel value="#{bundle.CreateLessonsLabel_cycle}" for="cycle" />
-                    <h:inputText id="cycle" value="#{lessonsController.selected.cycle}" title="#{bundle.CreateLessonsTitle_cycle}" />
+                    <h:outputLabel value="#{lessons.CreateLessonsLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{lessonsController.selected.name}" title="#{lessons.CreateLessonsTitle_name}" required="true" requiredMessage="#{lessons.CreateLessonsRequiredMessage_name}"/>
+                    <h:outputLabel value="#{lessons.CreateLessonsLabel_room}" for="room" />
+                    <h:inputText id="room" value="#{lessonsController.selected.room}" title="#{lessons.CreateLessonsTitle_room}" required="true" requiredMessage="#{lessons.CreateLessonsRequiredMessage_room}"/>
+                    <h:outputLabel value="#{lessons.CreateLessonsLabel_period}" for="period" />
+                    <h:inputText id="period" value="#{lessonsController.selected.period}" title="#{lessons.CreateLessonsTitle_period}" required="true" requiredMessage="#{lessons.CreateLessonsRequiredMessage_period}"/>
+                    <h:outputLabel value="#{lessons.CreateLessonsLabel_length}" for="length" />
+                    <h:inputText id="length" value="#{lessonsController.selected.length}" title="#{lessons.CreateLessonsTitle_length}" required="true" requiredMessage="#{lessons.CreateLessonsRequiredMessage_length}"/>
+                    <h:outputLabel value="#{lessons.CreateLessonsLabel_day}" for="day" />
+                    <h:inputText id="day" value="#{lessonsController.selected.day}" title="#{lessons.CreateLessonsTitle_day}" required="true" requiredMessage="#{lessons.CreateLessonsRequiredMessage_day}"/>
+                    <h:outputLabel value="#{lessons.CreateLessonsLabel_cycle}" for="cycle" />
+                    <h:inputText id="cycle" value="#{lessonsController.selected.cycle}" title="#{lessons.CreateLessonsTitle_cycle}" />
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{lessonsController.create}" value="#{bundle.CreateLessonsSaveLink}" />
+                <h:commandLink action="#{lessonsController.create}" value="#{lessons.CreateLessonsSaveLink}" />
                 <br />
                 <br />
-                <h:commandLink action="#{lessonsController.prepareList}" value="#{bundle.CreateLessonsShowAllLink}" immediate="true"/>
+                <h:commandLink action="#{lessonsController.prepareList}" value="#{lessons.CreateLessonsShowAllLink}" immediate="true"/>
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.CreateLessonsIndexLink}"/>
+                <h:link outcome="/index" value="#{lessons.CreateLessonsIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>

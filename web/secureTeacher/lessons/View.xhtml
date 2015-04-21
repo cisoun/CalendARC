@@ -7,7 +7,7 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ViewLessonsTitle}"></h:outputText>
+            <h:outputText value="#{lessons.ViewLessonsTitle}"></h:outputText>
         </ui:define>
         <ui:define name="content">
             <h:panelGroup id="messagePanel" layout="block">
@@ -15,37 +15,33 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewLessonsLabel_idlesson}"/>
-                    <h:outputText value="#{lessonsController.selected.idlesson}" title="#{bundle.ViewLessonsTitle_idlesson}"/>
-                    <h:outputText value="#{bundle.ViewLessonsLabel_name}"/>
-                    <h:outputText value="#{lessonsController.selected.name}" title="#{bundle.ViewLessonsTitle_name}"/>
-                    <h:outputText value="#{bundle.ViewLessonsLabel_room}"/>
-                    <h:outputText value="#{lessonsController.selected.room}" title="#{bundle.ViewLessonsTitle_room}"/>
-                    <h:outputText value="#{bundle.ViewLessonsLabel_starttime}"/>
-                    <h:outputText value="#{lessonsController.selected.starttime}" title="#{bundle.ViewLessonsTitle_starttime}">
-                        <f:convertDateTime pattern="HH:mm:ss" />
-                    </h:outputText>
-                    <h:outputText value="#{bundle.ViewLessonsLabel_endtime}"/>
-                    <h:outputText value="#{lessonsController.selected.endtime}" title="#{bundle.ViewLessonsTitle_endtime}">
-                        <f:convertDateTime pattern="HH:mm:ss" />
-                    </h:outputText>
-                    <h:outputText value="#{bundle.ViewLessonsLabel_day}"/>
-                    <h:outputText value="#{lessonsController.selected.day}" title="#{bundle.ViewLessonsTitle_day}"/>
-                    <h:outputText value="#{bundle.ViewLessonsLabel_cycle}"/>
-                    <h:outputText value="#{lessonsController.selected.cycle}" title="#{bundle.ViewLessonsTitle_cycle}"/>
+                    <h:outputText value="#{lessons.ViewLessonsLabel_idlesson}"/>
+                    <h:outputText value="#{lessonsController.selected.idlesson}" title="#{lessons.ViewLessonsTitle_idlesson}"/>
+                    <h:outputText value="#{lessons.ViewLessonsLabel_name}"/>
+                    <h:outputText value="#{lessonsController.selected.name}" title="#{lessons.ViewLessonsTitle_name}"/>
+                    <h:outputText value="#{lessons.ViewLessonsLabel_room}"/>
+                    <h:outputText value="#{lessonsController.selected.room}" title="#{lessons.ViewLessonsTitle_room}"/>
+                    <h:outputText value="#{lessons.ViewLessonsLabel_period}"/>
+                    <h:outputText value="#{lessonsController.selected.period}" title="#{lessons.ViewLessonsTitle_period}"/>
+                    <h:outputText value="#{lessons.ViewLessonsLabel_length}"/>
+                    <h:outputText value="#{lessonsController.selected.length}" title="#{lessons.ViewLessonsTitle_length}"/>
+                    <h:outputText value="#{lessons.ViewLessonsLabel_day}"/>
+                    <h:outputText value="#{lessonsController.selected.day}" title="#{lessons.ViewLessonsTitle_day}"/>
+                    <h:outputText value="#{lessons.ViewLessonsLabel_cycle}"/>
+                    <h:outputText value="#{lessonsController.selected.cycle}" title="#{lessons.ViewLessonsTitle_cycle}"/>
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{lessonsController.destroyAndView}" value="#{bundle.ViewLessonsDestroyLink}"/>
+                <h:commandLink action="#{lessonsController.destroyAndView}" value="#{lessons.ViewLessonsDestroyLink}"/>
                 <br />
                 <br />
-                <h:link outcome="Edit" value="#{bundle.ViewLessonsEditLink}"/>
+                <h:link outcome="Edit" value="#{lessons.ViewLessonsEditLink}"/>
                 <br />
-                <h:commandLink action="#{lessonsController.prepareCreate}" value="#{bundle.ViewLessonsCreateLink}" />
+                <h:commandLink action="#{lessonsController.prepareCreate}" value="#{lessons.ViewLessonsCreateLink}" />
                 <br />
-                <h:commandLink action="#{lessonsController.prepareList}" value="#{bundle.ViewLessonsShowAllLink}"/>
+                <h:commandLink action="#{lessonsController.prepareList}" value="#{lessons.ViewLessonsShowAllLink}"/>
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.ViewLessonsIndexLink}"/>
+                <h:link outcome="/index" value="#{lessons.ViewLessonsIndexLink}"/>
 
             </h:form>
         </ui:define>

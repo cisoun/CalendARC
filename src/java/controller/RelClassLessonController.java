@@ -1,7 +1,9 @@
 package controller;
 
-import facade.UsersFacade;
-import entity.Users;
+
+
+import facade.RelClassLessonFacade;
+import entity.RelClassLesson;
 import controller.util.JsfUtil;
 import controller.util.PaginationHelper;
 
@@ -17,40 +19,31 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import javax.servlet.http.HttpServletRequest;
 
-@ManagedBean(name = "usersController")
+@ManagedBean(name = "relClassLessonController")
 @SessionScoped
-public class UsersController implements Serializable {
+public class RelClassLessonController implements Serializable {
 
-    private Users current;
+    private RelClassLesson current;
     private DataModel items = null;
     @EJB
-    private facade.UsersFacade ejbFacade;
+    private facade.RelClassLessonFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public UsersController() {
+    public RelClassLessonController() {
     }
 
-    public Users getSelected() {
+    public RelClassLesson getSelected() {
         if (current == null) {
-            current = new Users();
+            current = new RelClassLesson();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private UsersFacade getFacade() {
+    private RelClassLessonFacade getFacade() {
         return ejbFacade;
-    }
-    
-    public Users getCurrentUser()
-    {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        return ejbFacade.getUserByName(request.getUserPrincipal().getName());   
     }
 
     public PaginationHelper getPagination() {
@@ -77,23 +70,26 @@ public class UsersController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Users) getItems().getRowData();
+        current = (RelClassLesson) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Users();
+        current = new RelClassLesson();
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
         try {
-            String confirmHash = Users.hashSha256Hex(current.getPassword());
-            current.setPassword(confirmHash);
+            current.setIdclass(current.getMyClass().getIdclass());
+            current.setIdlesson(current.getMyLesson().getIdlesson());
+            
+            System.out.println("Toto classID : " + current.getIdclass());
+            
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RelClassLessonCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -102,7 +98,7 @@ public class UsersController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Users) getItems().getRowData();
+        current = (RelClassLesson) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -110,7 +106,7 @@ public class UsersController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RelClassLessonUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -119,7 +115,7 @@ public class UsersController implements Serializable {
     }
 
     public String destroy() {
-        current = (Users) getItems().getRowData();
+        current = (RelClassLesson) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -139,16 +135,11 @@ public class UsersController implements Serializable {
             return "List";
         }
     }
-    
-    /*public void logout() {
-	HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        request.logout();
-    }*/
 
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RelClassLessonDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -204,16 +195,16 @@ public class UsersController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = Users.class)
-    public static class UsersControllerConverter implements Converter {
+    @FacesConverter(forClass = RelClassLesson.class)
+    public static class RelClassLessonControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            UsersController controller = (UsersController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "usersController");
+            RelClassLessonController controller = (RelClassLessonController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "relClassLessonController");
             return controller.ejbFacade.find(getKey(value));
         }
 
@@ -234,13 +225,14 @@ public class UsersController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Users) {
-                Users o = (Users) object;
-                return getStringKey(o.getIduser());
+            if (object instanceof RelClassLesson) {
+                RelClassLesson o = (RelClassLesson) object;
+                return getStringKey(o.getIdrel());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Users.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + RelClassLesson.class.getName());
             }
         }
 
     }
+
 }
