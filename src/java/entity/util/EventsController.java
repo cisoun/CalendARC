@@ -98,6 +98,15 @@ public class EventsController implements Serializable {
 
     public String create() {
         try {
+            // Faire -2 car erreur en fonction de l'heure du serveur (GTM+2)
+            Date endDate = current.getEnddate();
+            endDate.setHours(endDate.getHours() - 2);
+            current.setEnddate(endDate);
+            
+            Date startDate = current.getStartdate();
+            startDate.setHours(startDate.getHours() - 2);
+            current.setStartdate(startDate);
+            
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("EventsCreated"));
             return prepareCreate();
