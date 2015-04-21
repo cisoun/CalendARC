@@ -202,7 +202,7 @@ public class RelClassUserController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
     
-    public List<Lessons> getCurrentUserItemsAvailableSelectOne() {
+    public List<Lessons> getCurrentUserLessons() {
         return ejbFacade.getCurrentUserLessons(getCurrentUserClass());
     }
 

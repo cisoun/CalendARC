@@ -10,6 +10,8 @@ import entity.util.Lessons;
 import entity.util.RelClassLesson;
 import entity.util.RelClassUser;
 import entity.util.Users;
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -58,19 +60,23 @@ public class RelClassUserFacade extends AbstractFacade<RelClassUser> {
         
         List<RelClassLesson> relClassLesson = query2.getResultList();
         
+        List<Lessons> userLessons = new ArrayList<>();
+        
         int size = lessons.size();
         for (Lessons l : lessons) 
         {
-            if(!relClassLesson.contains(l.getIdlesson()))
+            int sizeRel = relClassLesson.size();
+            for (RelClassLesson r : relClassLesson) 
             {
-                lessons.remove(l);
+                if(l.getIdlesson() == r.getIdlesson())
+                {
+                    userLessons.add(l);
+                }
             }
-            if (--size == 0) 
-            {
-                
-            }
+
         }
-        return lessons;
+        
+        return userLessons;
     }
 
 }
