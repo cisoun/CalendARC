@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `lessons` (
 --
 
 INSERT INTO `lessons` (`idlesson`, `name`, `room`, `period`, `length`, `day`, `cycle`) VALUES
-(3, 'Le fist', 666, 1, 3, 3, 0);
+(3, 'Cours', 666, 1, 3, 3, 0);
 
 -- --------------------------------------------------------
 
