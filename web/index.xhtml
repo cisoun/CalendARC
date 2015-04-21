@@ -3,11 +3,81 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition template="/template.xhtml">
 	<ui:define name="content">
-	    <h1>CalendARC</h1>
-	    <h:link outcome="/view/users/Create.xhtml" value="Sign up as student" />
+	    <h1>Welcome to CalendARC</h1>
+	    <div class="content">
+		<ui:fragment rendered="#{request.userPrincipal == null}">
+		    <h:link outcome="/view/users/Create.xhtml" value="Sign up as student" />
+		</ui:fragment>
+		<ui:fragment rendered="#{request.userPrincipal != null}">
+		    <ui:fragment rendered="#{usersController.currentUser.permission.permissionName == 'admin'}">
+
+			<div class="col-md-6">
+			    <div class="panel panel-default">
+				<div class="panel-heading">
+				    <h3 class="panel-title">Classes</h3>
+				</div>
+				<div class="panel-body">
+				    <h:link outcome="/secureAdmin/classes/Create.xhtml" value="Create" /><br/>
+				    <h:link outcome="/secureAdmin/classes/Edit.xhtml" value="Edit" /><br/>
+				    <h:link outcome="/secureAdmin/classes/List.xhtml" value="List" /><br/>
+				    <h:link outcome="/secureAdmin/classes/View.xhtml" value="View" />
+				</div>
+			    </div>
+
+			</div>
+			<div class="col-md-6">
+			    <div class="panel panel-default">
+				<div class="panel-heading">
+				    <h3 class="panel-title">Teachers</h3>
+				</div>
+				<div class="panel-body">
+				    <h:link outcome="/secureAdmin/teachers/Create.xhtml" value="Create" /><br/>
+				    <h:link outcome="/secureAdmin/teachers/Edit.xhtml" value="Edit" /><br/>
+				    <h:link outcome="/secureAdmin/teachers/List.xhtml" value="List" /><br/>
+				    <h:link outcome="/secureAdmin/teachers/View.xhtml" value="View" />
+				</div>
+			    </div>
+			</div>
+
+		    </ui:fragment>
+		    
+		    <ui:fragment rendered="#{usersController.currentUser.permission.permissionName == 'teacher'}">
+
+			<div class="col-md-6">
+			    <div class="panel panel-default">
+				<div class="panel-heading">
+				    <h3 class="panel-title">Lessons</h3>
+				</div>
+				<div class="panel-body">
+				    <h:link outcome="/secureTeacher/lessons/Create.xhtml" value="Create" /><br/>
+				    <h:link outcome="/secureTeacher/lessons/Edit.xhtml" value="Edit" /><br/>
+				    <h:link outcome="/secureTeacher/lessons/List.xhtml" value="List" /><br/>
+				    <h:link outcome="/secureTeacher/lessons/View.xhtml" value="View" />
+				</div>
+			    </div>
+
+			</div>
+			<div class="col-md-6">
+			    <div class="panel panel-default">
+				<div class="panel-heading">
+				    <h3 class="panel-title">Linkage class/lesson</h3>
+				</div>
+				<div class="panel-body">
+				    <h:link outcome="/secureTeacher/ClassLessonLink/Create.xhtml" value="Create" /><br/>
+				    <h:link outcome="/secureTeacher/ClassLessonLink/Edit.xhtml" value="Edit" /><br/>
+				    <h:link outcome="/secureTeacher/ClassLessonLink/List.xhtml" value="List" /><br/>
+				    <h:link outcome="/secureTeacher/ClassLessonLink/View.xhtml" value="View" />
+				</div>
+			    </div>
+			</div>
+
+		    </ui:fragment>
+		</ui:fragment>
+	    </div>
 	</ui:define>
     </ui:composition>
 </html>
